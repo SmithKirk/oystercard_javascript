@@ -7,6 +7,10 @@ describe ('Oystercard', function(){
       expect(oystercard.balance).toEqual(0);
     });
 
+    it('will have a default balance cap', function(){
+      expect(oystercard.balanceCap).toEqual(OYSTERCARD_CAP)
+    });
+
   });
 
   describe('#topUp', function(){
@@ -18,6 +22,13 @@ describe ('Oystercard', function(){
     it('will not exceed maximum balance', function(){
       oystercard.topUp(90);
       expect(function(){oystercard.topUp(1)}).toThrowError('Card balance is already at maximum');
+    });
+  });
+
+  describe('#editBalanceCap', function(){
+    it('will change balance cap', function(){
+      oystercard.editBalanceCap(50);
+      expect(oystercard.balanceCap).toEqual(50);
     });
   });
 });

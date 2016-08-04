@@ -1,7 +1,10 @@
 function Oystercard(){
   this.balance = 0;
+  this.balanceCap = OYSTERCARD_CAP;
 
 }
+
+const OYSTERCARD_CAP = 90;
 
 Oystercard.prototype.topUp = function(amount){
   if (this.balance == 90) {
@@ -9,4 +12,8 @@ Oystercard.prototype.topUp = function(amount){
   } else {
     this.balance = amount;
   }
+};
+
+Oystercard.prototype.editBalanceCap = function(newCap){
+  this.balanceCap = newCap;
 };
