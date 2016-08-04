@@ -4,5 +4,9 @@ function Oystercard(){
 }
 
 Oystercard.prototype.topUp = function(amount){
-  this.balance = amount;
+  if (this.balance == 90) {
+    throw new Error ('Card balance is already at maximum');
+  } else {
+    this.balance = amount;
+  }
 };
