@@ -8,7 +8,7 @@ describe ('Oystercard', function(){
     });
 
     it('will have a default balance cap', function(){
-      expect(oystercard.balanceCap).toEqual(OYSTERCARD_CAP)
+      expect(oystercard.balanceCap).toEqual(OYSTERCARD_CAP);
     });
 
   });
@@ -29,6 +29,14 @@ describe ('Oystercard', function(){
     it('will change balance cap', function(){
       oystercard.editBalanceCap(50);
       expect(oystercard.balanceCap).toEqual(50);
+    });
+  });
+
+  describe('#deductFare', function(){
+    it('will deduct fare from balance', function(){
+      // oystercard.topUp(20);
+      oystercard.deductFare();
+      expect(oystercard.balance).toEqual(89);
     });
   });
 });

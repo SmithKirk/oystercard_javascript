@@ -17,3 +17,7 @@ Oystercard.prototype.topUp = function(amount){
 Oystercard.prototype.editBalanceCap = function(newCap){
   this.balanceCap = newCap;
 };
+
+Oystercard.prototype.deductFare = function(){
+  this.balance -=1;
+};
