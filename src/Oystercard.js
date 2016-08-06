@@ -1,6 +1,7 @@
 function Oystercard(){
   this.balance = 0;
   this.balanceCap = OYSTERCARD_CAP;
+  this.travelling = false;
 
 }
 
@@ -20,4 +21,12 @@ Oystercard.prototype.editBalanceCap = function(newCap){
 
 Oystercard.prototype.deductFare = function(){
   this.balance -=1;
+};
+
+Oystercard.prototype.touchIn = function(){
+  this.travelling = true;
+};
+
+Oystercard.prototype.touchOut = function(){
+  this.travelling = false;
 };

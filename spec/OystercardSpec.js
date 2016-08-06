@@ -11,6 +11,9 @@ describe ('Oystercard', function(){
       expect(oystercard.balanceCap).toEqual(OYSTERCARD_CAP);
     });
 
+    it('will have travelling set to false', function(){
+      expect(oystercard.travelling).toEqual(false);
+    });
   });
 
   describe('#topUp', function(){
@@ -37,6 +40,20 @@ describe ('Oystercard', function(){
       // oystercard.topUp(20);
       oystercard.deductFare();
       expect(oystercard.balance).toEqual(89);
+    });
+  });
+
+  describe('#touchIn', function(){
+    it('will change travelling to true', function(){
+      oystercard.touchIn();
+      expect(oystercard.travelling).toEqual(true);
+    });
+  });
+
+  describe('#touchOut', function(){
+    it('will change travelling to false', function(){
+      oystercard.touchOut();
+      expect(oystercard.travelling).toEqual(false);
     });
   });
 });
