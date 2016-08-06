@@ -74,6 +74,12 @@ describe ('Oystercard', function(){
         oystercard.touchOut();
         expect(oystercard.travelling).toEqual(false);
       });
+
+      it('will deduct fare on touch out', function(){
+        oystercard.touchIn();
+        oystercard.touchOut();
+        expect(oystercard.balance).toEqual(89);
+      });
     });
   });
 

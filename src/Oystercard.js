@@ -21,7 +21,7 @@ Oystercard.prototype.editBalanceCap = function(newCap){
 };
 
 Oystercard.prototype.deductFare = function(){
-  this.balance -=1;
+  this.balance -= FARE;
 };
 
 Oystercard.prototype.touchIn = function(){
@@ -34,4 +34,5 @@ Oystercard.prototype.touchIn = function(){
 
 Oystercard.prototype.touchOut = function(){
   this.travelling = false;
+  this.deductFare()
 };
