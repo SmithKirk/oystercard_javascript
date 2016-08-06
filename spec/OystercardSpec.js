@@ -1,6 +1,10 @@
 describe ('Oystercard', function(){
-  var oystercard = new Oystercard();
 
+  var oystercard;
+
+  beforeEach(function(){
+    oystercard = new Oystercard();
+  });
 
   describe('#initialize', function(){
     it('will have a balance of 0', function(){
@@ -17,14 +21,16 @@ describe ('Oystercard', function(){
   });
 
   describe('#topUp', function(){
+    beforeEach(function(){
+      oystercard.topUp(90);
+    });
+
     it('will add top amount to balance', function(){
-      oystercard.topUp(5);
-      expect(oystercard.balance).toEqual(5);
+      expect(oystercard.balance).toEqual(90);
     });
 
     it('will not exceed maximum balance', function(){
-      oystercard.topUp(90);
-      expect(function(){oystercard.topUp(1)}).toThrowError('Card balance is already at maximum');
+      expect(function(){oystercard.topUp(1);}).toThrowError('Card balance is already at maximum');
     });
   });
 
@@ -36,24 +42,40 @@ describe ('Oystercard', function(){
   });
 
   describe('#deductFare', function(){
+    beforeEach(function(){
+      oystercard.balance = 90;
+    });
+
     it('will deduct fare from balance', function(){
-      // oystercard.topUp(20);
       oystercard.deductFare();
       expect(oystercard.balance).toEqual(89);
     });
   });
 
-  describe('#touchIn', function(){
-    it('will change travelling to true', function(){
-      oystercard.touchIn();
-      expect(oystercard.travelling).toEqual(true);
+  describe('Travelling', function(){
+    beforeEach(function(){
+      oystercard.balance = 90;
+    });
+
+    describe('#touchIn', function(){
+      it('will change travelling to true', function(){
+        oystercard.touchIn();
+        expect(oystercard.travelling).toEqual(true);
+      });
+
+      it('will raise error if balance is below the minimum to travel', function(){
+        oystercard.balance = 0;
+        expect(function(){oystercard.touchIn();}).toThrowError('Card balance below mimimum to travel');
+      });
+    });
+
+    describe('#touchOut', function(){
+      it('will change travelling to false', function(){
+        oystercard.touchOut();
+        expect(oystercard.travelling).toEqual(false);
+      });
     });
   });
 
-  describe('#touchOut', function(){
-    it('will change travelling to false', function(){
-      oystercard.touchOut();
-      expect(oystercard.travelling).toEqual(false);
-    });
-  });
+
 });

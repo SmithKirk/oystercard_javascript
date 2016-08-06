@@ -6,6 +6,7 @@ function Oystercard(){
 }
 
 const OYSTERCARD_CAP = 90;
+const FARE = 1;
 
 Oystercard.prototype.topUp = function(amount){
   if (this.balance == 90) {
@@ -24,7 +25,11 @@ Oystercard.prototype.deductFare = function(){
 };
 
 Oystercard.prototype.touchIn = function(){
-  this.travelling = true;
+  if (this.balance < 1){
+    throw new Error ('Card balance below mimimum to travel');
+  } else {
+    this.travelling = true;
+  }
 };
 
 Oystercard.prototype.touchOut = function(){
