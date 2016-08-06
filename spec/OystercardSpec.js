@@ -1,6 +1,7 @@
 describe ('Oystercard', function(){
 
   var oystercard;
+  var station;
 
   beforeEach(function(){
     oystercard = new Oystercard();
@@ -18,6 +19,15 @@ describe ('Oystercard', function(){
     it('will have travelling set to false', function(){
       expect(oystercard.travelling).toEqual(false);
     });
+
+    it('will have an empty journey object', function(){
+      expect(oystercard.journey).toEqual({});
+    });
+
+    it('will have an empty log array', function(){
+      expect(oystercard.log).toEqual([]);
+    });
+
   });
 
   describe('#topUp', function(){
@@ -67,6 +77,11 @@ describe ('Oystercard', function(){
         oystercard.balance = 0;
         expect(function(){oystercard.touchIn();}).toThrowError('Card balance below mimimum to travel');
       });
+
+      it('will store entry station on touch in', function(){
+        oystercard.touchIn('Oval');
+        expect(oystercard.journey).toEqual(jasmine.objectContaining({'in': 'Oval'}));
+      });
     });
 
     describe('#touchOut', function(){
@@ -79,6 +94,13 @@ describe ('Oystercard', function(){
         oystercard.touchIn();
         oystercard.touchOut();
         expect(oystercard.balance).toEqual(89);
+      });
+
+      it('will store completed journey in log', function(){
+        oystercard.touchIn('Oval');
+        oystercard.touchOut('Bank');
+        expect(oystercard.log).toEqual(jasmine.objectContaining([{'in': 'Oval',
+        'out': 'Bank'}]));
       });
     });
   });

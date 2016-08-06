@@ -2,7 +2,8 @@ function Oystercard(){
   this.balance = 0;
   this.balanceCap = OYSTERCARD_CAP;
   this.travelling = false;
-
+  this.journey = {};
+  this.log = [];
 }
 
 const OYSTERCARD_CAP = 90;
@@ -24,15 +25,18 @@ Oystercard.prototype.deductFare = function(){
   this.balance -= FARE;
 };
 
-Oystercard.prototype.touchIn = function(){
+Oystercard.prototype.touchIn = function(station){
   if (this.balance < 1){
     throw new Error ('Card balance below mimimum to travel');
   } else {
     this.travelling = true;
+    this.journey['in'] = station;
   }
 };
 
-Oystercard.prototype.touchOut = function(){
+Oystercard.prototype.touchOut = function(station){
   this.travelling = false;
-  this.deductFare()
+  this.deductFare();
+  this.journey['out'] = station;
+  this.log.push(this.journey);
 };
