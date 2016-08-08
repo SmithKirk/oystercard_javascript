@@ -105,6 +105,11 @@ describe ('Oystercard', function(){
           [{'in': 'Oval','out': 'Bank'},
         {'in': 'Holborn','out': 'Bakerloo'}]));
       });
+
+      it('will show a penalty if there is no "in" station', function(){
+        oystercard.touchOut('Bank');
+        expect(oystercard.log).toEqual(jasmine.objectContaining([{'in': 'penalty', 'out': 'Bank'}]));
+      });
     });
   });
 

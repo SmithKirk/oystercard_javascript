@@ -31,6 +31,9 @@ Oystercard.prototype.touchIn = function(station){
 };
 
 Oystercard.prototype.touchOut = function(station){
+  if (this.travelling === false) {
+    this.touchIn('penalty');
+  }
   this.travelling = false;
   this._deductFare();
   this.journey['out'] = station;
