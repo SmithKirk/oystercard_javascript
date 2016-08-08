@@ -21,10 +21,6 @@ Oystercard.prototype.editBalanceCap = function(newCap){
   this.balanceCap = newCap;
 };
 
-Oystercard.prototype.deductFare = function(){
-  this.balance -= FARE;
-};
-
 Oystercard.prototype.touchIn = function(station){
   if (this.balance < 1){
     throw new Error ('Card balance below mimimum to travel');
@@ -36,7 +32,12 @@ Oystercard.prototype.touchIn = function(station){
 
 Oystercard.prototype.touchOut = function(station){
   this.travelling = false;
-  this.deductFare();
+  this._deductFare();
   this.journey['out'] = station;
   this.log.push(this.journey);
+  this.journey = {};
+};
+
+Oystercard.prototype._deductFare = function(){
+  this.balance -= FARE;
 };

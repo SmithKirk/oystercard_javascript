@@ -57,7 +57,7 @@ describe ('Oystercard', function(){
     });
 
     it('will deduct fare from balance', function(){
-      oystercard.deductFare();
+      oystercard._deductFare();
       expect(oystercard.balance).toEqual(89);
     });
   });
@@ -99,8 +99,11 @@ describe ('Oystercard', function(){
       it('will store completed journey in log', function(){
         oystercard.touchIn('Oval');
         oystercard.touchOut('Bank');
-        expect(oystercard.log).toEqual(jasmine.objectContaining([{'in': 'Oval',
-        'out': 'Bank'}]));
+        oystercard.touchIn('Holborn');
+        oystercard.touchOut('Bakerloo');
+        expect(oystercard.log).toEqual(jasmine.objectContaining(
+          [{'in': 'Oval','out': 'Bank'},
+        {'in': 'Holborn','out': 'Bakerloo'}]));
       });
     });
   });
