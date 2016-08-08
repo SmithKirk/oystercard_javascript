@@ -25,6 +25,10 @@ Oystercard.prototype.touchIn = function(station){
   if (this.balance < 1){
     throw new Error ('Card balance below mimimum to travel');
   } else {
+    if (this.travelling === true){
+      this.touchOut('penalty');
+      this._appendJourneyToLog()
+    }
     this.travelling = true;
     this.journey['in'] = station;
   }
@@ -37,6 +41,10 @@ Oystercard.prototype.touchOut = function(station){
   this.travelling = false;
   this._deductFare();
   this.journey['out'] = station;
+  this._appendJourneyToLog();
+};
+
+Oystercard.prototype._appendJourneyToLog = function(){
   this.log.push(this.journey);
   this.journey = {};
 };

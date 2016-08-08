@@ -82,6 +82,12 @@ describe ('Oystercard', function(){
         oystercard.touchIn('Oval');
         expect(oystercard.journey).toEqual(jasmine.objectContaining({'in': 'Oval'}));
       });
+
+      it('will show a penalty if previous journey was not completed', function(){
+        oystercard.touchIn('Waterloo');
+        oystercard.touchIn('Tower Hill');
+        expect(oystercard.log).toEqual(jasmine.objectContaining([{'in': 'Waterloo', 'out': 'penalty'}]));
+      });
     });
 
     describe('#touchOut', function(){
